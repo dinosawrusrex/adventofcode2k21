@@ -3,7 +3,7 @@ def final_position(course, with_aim=False):
     aim = 0
 
     for step in course:
-        direction, unit = step.split(' ')
+        direction, unit = step.split()
         unit = int(unit)
         if direction == 'forward':
             x += unit

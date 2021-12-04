@@ -7,9 +7,8 @@ class Bingo(Exception):
 
 class Board:
 
-    def __init__(self, card_number, numbers):
-        self.card_number = card_number
-        self.numbers = numbers
+    def __init__(self):
+        self.numbers = {}
         self.hit = set()
         self.x_hit = collections.defaultdict(lambda: 0)
         self.y_hit = collections.defaultdict(lambda: 0)
@@ -34,19 +33,16 @@ def parse_input(input_file):
     draw = []
     boards = []
     with open(input_file) as f:
-        card, y, numbers = 0, 0, {}
+        y = 0
         for l in f:
             if ',' in (l := l.strip()):
                 draw = l.split(',')
             elif not l:
-                if numbers:
-                    boards.append(Board(card, numbers))
-                card += 1
-                y, numbers = 0, {}
+                boards.append(Board())
+                y = 0
             else:
-                numbers.update({n: (x, y) for x, n in enumerate(l.split())})
+                boards[-1].numbers.update({n: (x, y) for x, n in enumerate(l.split())})
                 y += 1
-        boards.append(Board(card, numbers))
     return draw, boards
 
 

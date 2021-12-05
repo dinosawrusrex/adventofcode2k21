@@ -5,8 +5,8 @@ class Board:
 
     def __init__(self):
         self.numbers = {}
-        self.x_hit = collections.defaultdict(lambda: 0)
-        self.y_hit = collections.defaultdict(lambda: 0)
+        self.x_hit = collections.defaultdict(int)
+        self.y_hit = collections.defaultdict(int)
 
     def is_bingo(self, number):
         if number in self.numbers:

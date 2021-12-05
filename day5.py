@@ -28,8 +28,8 @@ def coordinates_travelled(start, end):
     return '', []
 
 def tally_overlaps(vent_lines):
-    same_axis = collections.defaultdict(lambda: 0)
-    with_diagonal = collections.defaultdict(lambda: 0)
+    same_axis = collections.defaultdict(int)
+    with_diagonal = collections.defaultdict(int)
     for line in vent_lines:
         start, end = (P(*(int(v) for v in coord.split(','))) for coord in line.strip().split(' -> '))
         dimension, coordinates = coordinates_travelled(start, end)

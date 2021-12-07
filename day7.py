@@ -3,14 +3,18 @@ import math
 import statistics
 
 def fuel_for_aligning(positions, align, constant=False):
-    return sum(
-        sum(range(abs(align-position)+1))
-        if constant else
-        abs(align - position)
-        for position in positions
-    )
+    if constant:
+        return sum(sum(range(abs(align-position)+1)) for position in positions)
+    return sum(abs(align - position) for position in positions)
 
 def align_with_least_fuel(positions, constant=False):
+    '''
+    Heuristic, and minor optimisation.
+    Instead of calculating every fuel use from min to max, calculate fuel use within one standard deviation of the mean position.
+    Fuel use is always minimal between min and max. Mean is between min and max, so it's probably a good starting point.
+    Standard deviation describes the "average" difference a data point would be from the mean.
+    So, we can bring the range of calculation down to within a standard deviation around the mean..
+    '''
     mean = math.floor(statistics.mean(positions))
     stdev = math.ceil(statistics.pstdev(positions, mu=mean))
     minimum = max(0, mean-stdev)
